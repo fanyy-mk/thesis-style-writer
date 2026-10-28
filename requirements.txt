@@ -1,0 +1,1 @@
+python-docx>=0.8.6  # 仅 Word 导出（md2docx.py）需要；核心分析仅用标准库

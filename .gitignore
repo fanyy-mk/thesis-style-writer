@@ -1,0 +1,13 @@
+# 隐私与个人工作产物 —— 绝不公开
+范例/
+thesis/
+thes
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+*.log
