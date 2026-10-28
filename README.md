@@ -1,5 +1,9 @@
 # thesis-style-writer
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
+[![Self-test](https://img.shields.io/badge/self--test-5%2F5%20passing-brightgreen)](scripts/self_test.py)
+
 本科毕业论文风格模仿与「去 AI 味」写作工具：从范文提取**可量化的风格画像**，按章节生成中文论文正文，并用「词句 → 节奏 → 具体性」三层门禁强制去除 AI 腔。
 
 核心不是同义词润色，而是让正文具备三样东西：**可核查的具体信息、真实的取舍与限制、自然的句段节奏**。目标是把论文写具体、写自然，而不是绕过检测器。
@@ -9,7 +13,7 @@
 - **量化风格画像**：从 `.docx/.txt/.md` 范文自动统计句长分布、段落节奏、标点密度、人称、具体性（数字/引用/英文术语）等基线。
 - **分层去 AI 味检查**：A 级硬禁词 0 容忍、B 级配额词按千字限流、C 级节奏/结构告警、D 级内容空洞判定，输出 `总分 + 阻断项 + 配额 + 告警` 报告。
 - **门禁通过才交付**：总分 ≥ 85 且阻断项为 0，未达标返回退出码 1。
-- **基础 Word 导出**：Markdown → 宋体小四 / 1.5 倍行距 / 首行缩进的 `.docx` 初稿。
+- **一键自测**：`python scripts/self_test.py` 覆盖规则校验、画像生成、AI 味检出与改写评分，clone 后即可确认可用。
 - **仅标准库**：核心分析（画像 + 检查）只用 Python 标准库，无需额外依赖。
 
 ## 安装
@@ -22,6 +26,16 @@ pip install python-docx
 ```
 
 核心功能（`style_profile.py`、`ai_check.py`）不需要任何第三方依赖。
+
+## 快速验证
+
+clone 后先跑一遍自测，确认脚本链路可用（约 30 秒）：
+
+```bash
+python scripts/self_test.py
+```
+
+预期输出：`自测结果：全部通过（5/5）`。若 `md2docx.py` 显示 SKIP，先 `pip install python-docx`。
 
 ## 快速开始
 
@@ -65,6 +79,12 @@ scripts/
   md2docx.py               Markdown → 基础排版 Word（需 python-docx）
   ai_patterns.json         A/B/C 级规则库，可增删
   thesis_style_lib.py      共享分析库（仅标准库）
+  validate_patterns.py     校验 ai_patterns.json 结构（改规则后必跑）
+  self_test.py             一键自测：规则校验 + 画像 + AI 味检出 + Word 导出
+demos/
+  sample-thesis.md         演示范文（虚构数据，仅用于测试）
+  ai-flavored-draft.md     演示 AI 味草稿
+  rewritten-draft.md       演示改写后草稿
 ```
 
 ## 使用前提与边界
